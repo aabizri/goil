@@ -1,9 +1,9 @@
-# goscrapiseplive
+# goilscrap: Go IsepLive Scrapper
 
 A scrapper for iseplive.fr, a student website
 
 ```
-go get github.com/aabizri/goscrapiseplive
+go get github.com/aabizri/goilscrap
 ```
 
 ## Example:

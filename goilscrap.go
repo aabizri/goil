@@ -1,4 +1,4 @@
-package goscrapiseplive
+package goilscrap
 
 import (
 	"bytes"
