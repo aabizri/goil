@@ -10,17 +10,18 @@ go get github.com/aabizri/goilscrap
 
 Start a session
 ```golang
-session,err := Login(USERNAME,PASSWORD, &http.Client{})
+import "net/http"
+session,err := goilscrap.Login(USERNAME,PASSWORD, &http.Client{})
 ```
 
 Scrap the website
 ```golang
-studentList,err := sess.GetStudentList()
+studentList,err := session.GetStudentList()
 ```        
 
 Export it in csv format through whatever io.writer you prefer, here with `os.Stdout`
 ```golang
-err = ExportToCSV(studentList,os.Stdout)
+err = goilscrap.ExportToCSV(studentList,os.Stdout)
 ```
 
 
