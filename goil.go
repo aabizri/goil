@@ -15,8 +15,6 @@ package goil
 
 import (
 	"bytes"
-	"github.com/gocarina/gocsv"
-	"io"
 	"net/http"
 	"net/http/cookiejar"
 	"net/url"
@@ -57,7 +55,4 @@ func Login(username string, password string, client *http.Client) (*Session, err
 	return sess, nil
 }
 
-func ExportToCSV(studentList StudentList, writer io.Writer) error {
-	err := gocsv.Marshal(&studentList, writer)
-	return err
 }

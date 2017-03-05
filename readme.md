@@ -21,7 +21,7 @@ studentList,err := session.GetStudentList()
 
 Export it in csv format through whatever io.writer you prefer, here with `os.Stdout`
 ```golang
-err = goil.ExportToCSV(studentList,os.Stdout)
+err = studentList.ExportToCSV(os.Stdout)
 ```
 
 Post something

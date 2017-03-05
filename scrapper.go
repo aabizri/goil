@@ -3,6 +3,7 @@ package goil
 import (
 	"fmt"
 	"github.com/PuerkitoBio/goquery"
+	"github.com/gocarina/gocsv"
 	"io"
 	"strings"
 )
@@ -147,4 +148,10 @@ func parseProfileInfo(sel *goquery.Selection) (student Student, err error) {
 	})
 
 	return
+}
+
+// Export StudentList to CSV
+func (sl StudentList) CSV(writer io.Writer) error {
+	err := gocsv.Marshal(&sl, writer)
+	return err
 }
