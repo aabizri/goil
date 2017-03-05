@@ -1,4 +1,17 @@
-package goilscrap
+// Scrapping the face book
+
+// Package goil provides an interface to iseplive.fr, it's currently a WIP
+// Supported features:
+// 	- Posting
+//	- Deleting a post by ID
+//	- Retrieving the list of all students along with their data, but not pictures
+// Incoming
+//	- Retrieving only one student's data
+//	- Retrieving students pictures
+//	- Retrieving publications
+//	- Commenting
+//	- Liking / Disliking
+package goil
 
 import (
 	"bytes"

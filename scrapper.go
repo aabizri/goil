@@ -1,4 +1,4 @@
-package goilscrap
+package goil
 
 import (
 	"fmt"
