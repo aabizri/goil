@@ -2,8 +2,6 @@ package goilscrap
 
 import (
 	"bytes"
-	"errors"
-	"fmt"
 	"github.com/gocarina/gocsv"
 	"io"
 	"net/http"
@@ -18,9 +16,6 @@ type Session struct {
 func Login(username string, password string, client *http.Client) (*Session, error) {
 	// Init
 	sess := &Session{}
-	client.CheckRedirect = func(req *http.Request, via []*http.Request) error {
-		return http.ErrUseLastResponse
-	}
 
 	// Prepare login form
 	loginForm := url.Values{}
@@ -44,11 +39,6 @@ func Login(username string, password string, client *http.Client) (*Session, err
 		return nil, err
 	}
 	defer resp.Body.Close()
-
-	// Check if response is OK
-	if resp.StatusCode != 302 {
-		return nil, errors.New(fmt.Sprintf("Status code isn't OK: %d", resp.StatusCode))
-	}
 
 	sess.Client = client
 	return sess, nil
