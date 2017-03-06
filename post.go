@@ -124,21 +124,6 @@ func (p *Post) AttachDocument(filepath string) {
 	p.Photos = append(p.Photos, filepath)
 }
 
-// Generic file add
-/*
-func (p *Post) AddFile(filetype fileType, filepath string) {
-	switch filetype {
-		case Photo:
-			p.AttachPhoto(filepath)
-		case Video:
-			p.AttachVideo(filepath)
-		case Audio:
-			p.AttachAudio(filepath)
-		case Document:
-			p.AttachDocument(filepath)
-	}
-} */
-
 func bts(from bool) string {
 	var output string
 	if from {
