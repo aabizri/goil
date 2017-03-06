@@ -21,6 +21,11 @@ import (
 	"net/url"
 )
 
+var BaseURL *url.URL = &url.URL{
+	Scheme: "http",
+	Host:   "iseplive.fr",
+}
+
 type Session struct {
 	Client *http.Client
 }
@@ -56,28 +61,34 @@ func Login(username string, password string, client *http.Client) (*Session, err
 	return sess, nil
 }
 
-// Convenience wrapper around Login & *Session.Cookie
-func LoginRetrieveCookie(username string, password string) (*http.Cookie, error) {
-	// Login
-	sess, err := Login(username, password, &http.Client{})
-	if err != nil {
-		return nil, err
+// Login using only a cookie
+func CreateSessionByCookieValue(cookieValue string, client *http.Client) *Session {
+	// Create a cookie
+	cookie := http.Cookie{
+		Name:  "login",
+		Value: cookieValue,
 	}
 
-	// Retrieve cookie
-	return sess.Cookie()
+	// Create a slice around it
+	cookies := make([]*http.Cookie, 1)
+	cookies[0] = &cookie
+
+	// Make cookiejar
+	cookieJar, _ := cookiejar.New(nil)
+	client.Jar = cookieJar
+
+	// Add cookie to the cookie jar
+	cookieJar.SetCookies(BaseURL, cookies)
+
+	// Create a session
+	sess := &Session{client}
+	return sess
 }
 
 // Retrieve the login cookie
 func (s *Session) Cookie() (*http.Cookie, error) {
-	// Parse the url
-	url, err := url.Parse("http://iseplive.fr")
-	if err != nil {
-		return nil, err
-	}
-
 	// Iterate through the cookies in order to find the right one
-	for _, k := range s.Client.Jar.Cookies(url) {
+	for _, k := range s.Client.Jar.Cookies(BaseURL) {
 		if k.Name == "login" {
 			return k, nil
 		}
