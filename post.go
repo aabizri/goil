@@ -155,14 +155,14 @@ func (s *Session) PublishPost(post *Post) error {
 
 	// Is there an event or a survey ? Then add them too
 	if post.EventTitle != "" {
-		params["event_title"]=post.EventTitle
-		params["event_start"]=post.EventStart.Format(timeLayout)
-		params["event_end"]=post.EventEnd.Format(timeLayout)
+		params["event_title"] = post.EventTitle
+		params["event_start"] = post.EventStart.Format(timeLayout)
+		params["event_end"] = post.EventEnd.Format(timeLayout)
 	}
 	if post.SurveyQuestion != "" {
-		params["survey_question"]=post.SurveyQuestion
-		params["survey_end"]=post.SurveyEnd.Format(timeLayout)
-		params["survey_multiple"]=bts(post.SurveyMultiple)
+		params["survey_question"] = post.SurveyQuestion
+		params["survey_end"] = post.SurveyEnd.Format(timeLayout)
+		params["survey_multiple"] = bts(post.SurveyMultiple)
 		// Answers will be added later, as there are multiple of them
 	}
 
@@ -173,7 +173,7 @@ func (s *Session) PublishPost(post *Post) error {
 			return err
 		}
 	}
-	
+
 	// Add the survey answers
 	if post.SurveyQuestion != "" {
 		for _, answer := range params {
