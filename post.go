@@ -48,6 +48,8 @@ func (g Group) format() string {
 	return strconv.FormatUint(uint64(g), 10)
 }
 
+const timeLayout string = "02/01/2006 à 15:04"
+
 // A post on iseplive.fr
 type Post struct {
 	Message  string   // message
@@ -72,6 +74,7 @@ type Post struct {
 	SurveyQuestion string
 	SurveyEnd      time.Time // Format in "DD/MM/YYYY à HH:MM"
 	SurveyAnswers  []string
+	SurveyMultiple bool // Enable multiple answers
 }
 
 // TODO Check if when post with no group "official" field exists
@@ -166,13 +169,33 @@ func (s *Session) PublishPost(post *Post) error {
 	}
 
 	// Is there an event or a survey ? Then add them too
-	//TODO
+	if post.EventTitle != "" {
+		params["event_title"]=post.EventTitle
+		params["event_start"]=post.EventStart.Format(timeLayout)
+		params["event_end"]=post.EventEnd.Format(timeLayout)
+	}
+	if post.SurveyQuestion != "" {
+		params["survey_question"]=post.SurveyQuestion
+		params["survey_end"]=post.SurveyEnd.Format(timeLayout)
+		params["survey_multiple"]=bts(post.SurveyMultiple)
+		// Answers will be added later, as there are multiple of them
+	}
 
-	// Add them
+	// Add the key/value pairs
 	for key, val := range params {
 		err := writer.WriteField(key, val)
 		if err != nil {
 			return err
+		}
+	}
+	
+	// Add the survey answers
+	if post.SurveyQuestion != "" {
+		for _, answer := range params {
+			err := writer.WriteField("survey_answer[]", answer)
+			if err != nil {
+				return err
+			}
 		}
 	}
 
