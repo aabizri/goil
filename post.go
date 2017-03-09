@@ -115,13 +115,13 @@ func (p *Post) AttachPhoto(filepath string) {
 	p.Photos = append(p.Photos, filepath)
 }
 func (p *Post) AttachVideo(filepath string) {
-	p.Photos = append(p.Photos, filepath)
+	p.Videos = append(p.Videos, filepath)
 }
 func (p *Post) AttachAudio(filepath string) {
-	p.Photos = append(p.Photos, filepath)
+	p.Photos = append(p.Audio, filepath)
 }
 func (p *Post) AttachDocument(filepath string) {
-	p.Photos = append(p.Photos, filepath)
+	p.Documents = append(p.Documents, filepath)
 }
 
 func bts(from bool) string {
