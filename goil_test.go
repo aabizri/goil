@@ -1,52 +1,33 @@
-// General testing system
-
 package goil
 
 import (
-	//"fmt"
-	"net/http"
-	//"os"
 	"flag"
+	"net/http"
 	"testing"
 )
 
-var username = flag.String("uname", "", "Username on ISEPLive")
-var password = flag.String("pass", "", "Password on ISEPLive")
-var loginCookie = flag.String("cookie", "", "Login cookie (Alternative to username/password combo)")
+var username = flag.String("u", "", "Username on ISEPLive")
+var password = flag.String("p", "", "Password on ISEPLive")
+var loginCookie = flag.String("c", "", "Login cookie (Alternative to username/password combo)")
 var session *Session
 
 func init() {
 	flag.Parse()
-	/*if (*username == "" || *password == "") && loginCookie=="" {
-		return
-	}*/
+
+	// Create a session if either a username/password combo or a loginCookie is provided
+	var err error
 	if *username != "" && *password != "" {
-		var err error
 		session, err = Login(*username, *password, &http.Client{})
-		if err != nil {
-			panic(err)
-		}
-	} /*else {
-		// NOT YET IMPLEMENTED: Directly get the login cookie
-		// use session.Jar.SetCookies(http://iseplive.fr,cookies)
-	}*/
+	} else if *loginCookie != "" {
+		session = CreateSessionByCookieValue(*loginCookie, &http.Client{})
+	}
+	if err != nil {
+		panic(err)
+	}
 }
 
 func skipIfNoSession(t *testing.T) {
 	if session == nil {
 		t.Skip("No session could be created, probably missing username/password combo or cookie")
 	}
-}
-
-func Test_Login(t *testing.T) {
-	if *username == "" || *password == "" {
-		t.Skip("Username or Password missing")
-	}
-
-	sess, err := Login(*username, *password, &http.Client{})
-	if err != nil {
-		t.Error(err)
-	}
-
-	t.Logf("We got cookies: %v", sess.Client.Jar)
 }
