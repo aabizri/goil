@@ -6,7 +6,7 @@ import (
 )
 
 // Find out what groups are available to the session
-func (s *Session) AvailableGroups() (map[Group]string, error) {
+func (s *Session) GetAvailableGroups() (map[Group]string, error) {
 	// Retrive main page
 	resp, err := s.Client.Get("http://iseplive.fr/")
 	if err != nil {
