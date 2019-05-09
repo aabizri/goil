@@ -1,5 +1,6 @@
-# Goil : Go iseplive.fr (old version) interface [![Build 
-Status](https://travis-ci.org/aabizri/goil.svg?branch=dev)](https://travis-ci.org/aabizri/goil) [![Go Report Card](https://goreportcard.com/badge/github.com/aabizri/goil)](https://goreportcard.com/report/github.com/aabizri/goil) [![GoDoc](https://godoc.org/github.com/aabizri/goil?status.svg)](https://godoc.org/github.com/aabizri/goil)
+# Goil : Go iseplive.fr (old version) interface 
+
+[![Build Status](https://travis-ci.org/aabizri/goil.svg?branch=dev)](https://travis-ci.org/aabizri/goil) [![Go Report Card](https://goreportcard.com/badge/github.com/aabizri/goil)](https://goreportcard.com/report/github.com/aabizri/goil) [![GoDoc](https://godoc.org/github.com/aabizri/goil?status.svg)](https://godoc.org/github.com/aabizri/goil)
 
 # WARNING: OBSOLETE. THIS DOESN'T WORK ON THE NEW WEBSITE. NOT MAINTAINED.
 
